@@ -7,17 +7,19 @@ document.addEventListener("keydown", function (e) {
   console.log(e.code);
   switch (e.code) {
     case "ArrowLeft":
-      figureManager.figureLeft;
+      figureManager.figureLeft(3);
       console.log(figureManager.figureLeft);
     break;
     case "ArrowRight":
+      figureManager.figureRight(3);
+      console.log(figureManager.figureRight);
       console.log("To the right!");
     break;
     case "Space":
       console.log("Rotation");
     break;
     case "ArrowDown":
-      figureManager.figureFastFall;
+
       console.log("Fast Fall");
     break;
   }
@@ -38,11 +40,11 @@ for (let i = 0; i < 200; i++) {
 }
 
 figureManager.main_field = main_field;
-// figureManager.createFigure1(5, 5, 1);
+figureManager.createFigure1(8, 5, 1);
 
 
 
-figureManager.figureFall(0);
+//figureManager.figureFall(0);
 
 
 //figureManager.createFigure1(5, 4, 1);

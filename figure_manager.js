@@ -8,22 +8,24 @@ let figureManager = {
     let obj = this;
     setTimeout(function(){
       if (y <=20) {
-//        obj.createFigure1(5, y++, 1);
+       obj.createFigure1(5, y++, 1);
 //        obj.createFigure2(5, y++, 1);
 //        obj.createFigure3(5, y++, 1);
 //        obj.createFigure4(5, y++, 1);
 //        obj.createFigure5(5, y++, 1);
 //        obj.createFigure6(5, y++, 1);
-        obj.createFigure7(5, y++, 2);
+//        obj.createFigure7(5, y++, 2);
         obj.figureFall(y);
       }
     }, 500);
 },
 figureLeft: function(x){
-    this.createFigure1(x--, 5, 1);
-    this.figureLeft(x);
+   this.createFigure1(this.x-1, 5, 1);
+},
 
-  },
+figureRight: function(x){
+   this.createFigure1(this.x+1, 5, 1);
+},
 
   //палка
   createFigure1: function (x, y, r) {
