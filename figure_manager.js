@@ -2,29 +2,31 @@ let figureManager = {
   main_field: null,
   x: 0,
   y: 3,
+  x_fall: 5,
+  y_fall: 1,
 
 
-  figureFall: function(y){
+  figureFall: function(){
     let obj = this;
     setTimeout(function(){
-      if (y <=20) {
-       obj.createFigure1(5, y++, 1);
+      if (obj.y_fall <=20) {
+       obj.createFigure1(obj.x_fall, obj.y_fall++, 1);
 //        obj.createFigure2(5, y++, 1);
 //        obj.createFigure3(5, y++, 1);
 //        obj.createFigure4(5, y++, 1);
 //        obj.createFigure5(5, y++, 1);
 //        obj.createFigure6(5, y++, 1);
 //        obj.createFigure7(5, y++, 2);
-        obj.figureFall(y);
+        obj.figureFall();
       }
     }, 500);
 },
-figureLeft: function(x){
-   this.createFigure1(this.x-1, 5, 1);
+figureLeft: function(){
+   this.createFigure1(--this.x_fall, this.y, 1);
 },
 
-figureRight: function(x){
-   this.createFigure1(this.x+1, 5, 1);
+figureRight: function(){
+   this.createFigure1(++this.x_fall, this.y, 1);
 },
 
   //палка
