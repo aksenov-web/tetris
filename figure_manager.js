@@ -6,6 +6,7 @@ let figureManager = {
   x_fall: 5,
   y_fall: 1,
   r_fall: 1,
+  fall_rate: 1500,
 
 
   figureFall: function(){
@@ -15,37 +16,41 @@ let figureManager = {
 //       obj.createFigure1(obj.x_fall, obj.y_fall++, obj.r_fall);
 //        obj.createFigure2(obj.x_fall, obj.y_fall++, obj.r_fall);
 //        obj.createFigure3(obj.x_fall, obj.y_fall++, obj.r_fall);
-//        obj.createFigure4(obj.x_fall, obj.y_fall++, obj.r_fall);
-        obj.createFigure5(obj.x_fall, obj.y_fall++, obj.r_fall);
+        obj.createFigure4(obj.x_fall, obj.y_fall++, obj.r_fall);
+//          obj.createFigure5(obj.x_fall, obj.y_fall++, obj.r_fall);
 //        obj.createFigure6(obj.x_fall, obj.y_fall++, obj.r_fall);
 //        obj.createFigure7(obj.x_fall, obj.y_fall++, obj.r_fall);
         obj.figureFall();
       }
-    }, 500);
+    }, obj.fall_rate);
 },
-figureLeft: function(){
-  if (this.x_fall > 1) {
-    this.createFigure5(--this.x_fall, this.y, this.r);
-  }
+  figureLeft: function(){
+    if (this.x_fall > 1) {
+      this.createFigure4(--this.x_fall, this.y, this.r_fall);
+    }
+  },
+
+  figureRight: function(){
+    if (this.x_fall < 10) {
+     this.createFigure4(++this.x_fall, this.y, this.r_fall);
+    }
+  },
+
+  figureRotate: function(){
+    if (this.r_fall <= 4) {
+     this.createFigure4(this.x, this.y, ++this.r_fall);
+    }
+    else {
+      this.r_fall = 1;
+      this.figureRotate();
+    }
+  },
+
+figureDrop: function(){
+  this.fall_rate = 10;
 },
 
-figureRight: function(){
-  if (this.x_fall < 10) {
-   this.createFigure5(++this.x_fall, this.y, this.r);
-  }
-},
-
-figureRotate: function(){
-  if (this.r_fall < 5) {
-   this.createFigure5(this.x, this.y, ++this.r_fall);
-  }
-  else {
-  this.r_fall = 1;
-  this.figureRotate;
-  }
-},
-
-  //палка
+    //палка
   createFigure1: function (x, y, r) {
     let color = "";
 
@@ -57,7 +62,6 @@ figureRotate: function(){
         color = "aqua"
       }
         this.cellColorChange(this.x, this.y, color);
-
       switch (r) {
         case 1:
         case 3:
@@ -79,14 +83,13 @@ figureRotate: function(){
     }
   },
 
-  // z
-   createFigure2: function (x, y, r) {
-     let color = "";
-
+    // z
+  createFigure2: function (x, y, r) {
+    let color = "";
     for (let n = 1; n <= 2; n++) {
-       if (n == 1) {
+      if (n == 1) {
         color = "";
-       }
+      }
       else {
         color = "red"
       }
@@ -113,7 +116,7 @@ figureRotate: function(){
     }
   },
 
-  // backward z
+    // backward z
    createFigure3: function (x, y, r) {
      let color = "";
      for (let n = 1; n <= 2; n++) {
@@ -146,7 +149,7 @@ figureRotate: function(){
     }
   },
 
-  // square
+    // square
   createFigure4:  function (x, y, r) {
     let color = "";
     for (let n = 1; n <= 2; n++) {
@@ -311,13 +314,13 @@ figureRotate: function(){
 
   cellColorChange: function (x, y, color, r) {
     if (y < 1 || y > 20 || x < 1 || x >10) {
-        return;
-        }
+      return;
+    }
 
     let nth = x + (10 * y) - 10;
 
     let cell = this.main_field.querySelector('div:nth-child(' + nth + ')');
     cell.style.background = color;
 
-    }
+  }
 }

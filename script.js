@@ -22,16 +22,13 @@ document.addEventListener("keydown", function (e) {
       console.log("Rotation");
     break;
     case "ArrowDown":
-
-      console.log("Fast Fall");
+      figureManager.figureDrop();
+      console.log("Drop");
     break;
   }
 
 });
 
-/*
-* Add empty div tags
-*/
 for (let i = 0; i < 200; i++) {
   main_field.appendChild(
     emptyDiv.cloneNode()
