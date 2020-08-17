@@ -2,29 +2,47 @@ let figureManager = {
   main_field: null,
   x: 0,
   y: 3,
+  r: 1,
+  x_fall: 5,
+  y_fall: 1,
+  r_fall: 1,
 
 
-  figureFall: function(y){
+  figureFall: function(){
     let obj = this;
     setTimeout(function(){
-      if (y <=20) {
-       obj.createFigure1(5, y++, 1);
-//        obj.createFigure2(5, y++, 1);
-//        obj.createFigure3(5, y++, 1);
-//        obj.createFigure4(5, y++, 1);
-//        obj.createFigure5(5, y++, 1);
-//        obj.createFigure6(5, y++, 1);
-//        obj.createFigure7(5, y++, 2);
-        obj.figureFall(y);
+      if (obj.y_fall <=20) {
+//       obj.createFigure1(obj.x_fall, obj.y_fall++, obj.r_fall);
+//        obj.createFigure2(obj.x_fall, obj.y_fall++, obj.r_fall);
+//        obj.createFigure3(obj.x_fall, obj.y_fall++, obj.r_fall);
+//        obj.createFigure4(obj.x_fall, obj.y_fall++, obj.r_fall);
+        obj.createFigure5(obj.x_fall, obj.y_fall++, obj.r_fall);
+//        obj.createFigure6(obj.x_fall, obj.y_fall++, obj.r_fall);
+//        obj.createFigure7(obj.x_fall, obj.y_fall++, obj.r_fall);
+        obj.figureFall();
       }
     }, 500);
 },
-figureLeft: function(x){
-   this.createFigure1(this.x-1, 5, 1);
+figureLeft: function(){
+  if (this.x_fall > 1) {
+    this.createFigure5(--this.x_fall, this.y, this.r);
+  }
 },
 
-figureRight: function(x){
-   this.createFigure1(this.x+1, 5, 1);
+figureRight: function(){
+  if (this.x_fall < 10) {
+   this.createFigure5(++this.x_fall, this.y, this.r);
+  }
+},
+
+figureRotate: function(){
+  if (this.r_fall < 5) {
+   this.createFigure5(this.x, this.y, ++this.r_fall);
+  }
+  else {
+  this.r_fall = 1;
+  this.figureRotate;
+  }
 },
 
   //палка
@@ -176,18 +194,18 @@ figureRight: function(x){
         this.y = y;
       break;
       case 3:
-        this.cellColorChange(this.x+1, this.y, color);
-        this.cellColorChange(this.x+1, this.y-1, color);
-        this.cellColorChange(this.x+1, this.y-2, color);
-        this.cellColorChange(this.x, this.y-1, color);
-        this.x = x;
-        this.y = y;
-      break;
-      case 4:
         this.cellColorChange(this.x, this.y-1, color);
         this.cellColorChange(this.x+1, this.y-1, color);
         this.cellColorChange(this.x+2, this.y-1, color);
         this.cellColorChange(this.x+1, this.y, color);
+        this.x = x;
+        this.y = y;
+      break;
+      case 4:
+        this.cellColorChange(this.x+1, this.y, color);
+        this.cellColorChange(this.x+1, this.y-1, color);
+        this.cellColorChange(this.x+1, this.y-2, color);
+        this.cellColorChange(this.x, this.y-1, color);
         this.x = x;
         this.y = y;
       break;

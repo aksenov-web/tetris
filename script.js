@@ -2,20 +2,23 @@
 let main_field = document.getElementById('main-field');
 let emptyDiv = document.createElement('div');
 
+figureManager.main_field = main_field;
+figureManager.figureFall();
 
 document.addEventListener("keydown", function (e) {
   console.log(e.code);
   switch (e.code) {
     case "ArrowLeft":
-      figureManager.figureLeft(3);
+      figureManager.figureLeft();
       console.log(figureManager.figureLeft);
     break;
     case "ArrowRight":
-      figureManager.figureRight(3);
+      figureManager.figureRight();
       console.log(figureManager.figureRight);
       console.log("To the right!");
     break;
     case "Space":
+      figureManager.figureRotate();
       console.log("Rotation");
     break;
     case "ArrowDown":
@@ -39,12 +42,8 @@ for (let i = 0; i < 200; i++) {
 
 }
 
-figureManager.main_field = main_field;
-figureManager.createFigure1(8, 5, 1);
+//figureManager.createFigure1(8, 5, 1);
 
-
-
-//figureManager.figureFall(0);
 
 
 //figureManager.createFigure1(5, 4, 1);
