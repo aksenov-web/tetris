@@ -3,6 +3,7 @@ let main_field = document.getElementById('main-field');
 let button_field = document.getElementById('button-field');
 let main = document.getElementById('main');
 let emptyDiv = document.createElement('div');
+let scoreboard = document.getElementById('scoreboard');
 
 
 /*for (let i = 0; i < 3; i) {
@@ -69,12 +70,14 @@ document.addEventListener("keydown", function (e) {
 
 });
 
+scoreboard.value = figureManager.fall_rate;
 
 
 for (let i = 0; i < 200; i++) {
   main_field.appendChild(
     emptyDiv.cloneNode()
   );
+
     document.getElementById('test-field').appendChild(
     document.createElement('div')
   );
