@@ -6,7 +6,7 @@ let figureManager = {
   x_fall: 5,
   y_fall: 1,
   r_fall: 1,
-  fall_rate: 1500,
+  fall_rate: 800,
 
 
   figureFall: function(){
@@ -15,8 +15,8 @@ let figureManager = {
       if (obj.y_fall <=20) {
 //       obj.createFigure1(obj.x_fall, obj.y_fall++, obj.r_fall);
 //        obj.createFigure2(obj.x_fall, obj.y_fall++, obj.r_fall);
-//        obj.createFigure3(obj.x_fall, obj.y_fall++, obj.r_fall);
-        obj.createFigure4(obj.x_fall, obj.y_fall++, obj.r_fall);
+        obj.createFigure3(obj.x_fall, obj.y_fall++, obj.r_fall);
+//        obj.createFigure4(obj.x_fall, obj.y_fall++, obj.r_fall);
 //          obj.createFigure5(obj.x_fall, obj.y_fall++, obj.r_fall);
 //        obj.createFigure6(obj.x_fall, obj.y_fall++, obj.r_fall);
 //        obj.createFigure7(obj.x_fall, obj.y_fall++, obj.r_fall);
@@ -26,19 +26,19 @@ let figureManager = {
 },
   figureLeft: function(){
     if (this.x_fall > 1) {
-      this.createFigure4(--this.x_fall, this.y, this.r_fall);
+      this.createFigure3(--this.x_fall, this.y, this.r_fall);
     }
   },
 
   figureRight: function(){
     if (this.x_fall < 10) {
-     this.createFigure4(++this.x_fall, this.y, this.r_fall);
+     this.createFigure3(++this.x_fall, this.y, this.r_fall);
     }
   },
 
   figureRotate: function(){
     if (this.r_fall <= 4) {
-     this.createFigure4(this.x, this.y, ++this.r_fall);
+     this.createFigure3(this.x, this.y, ++this.r_fall);
     }
     else {
       this.r_fall = 1;
@@ -47,7 +47,19 @@ let figureManager = {
   },
 
 figureDrop: function(){
-  this.fall_rate = 10;
+  this.fall_rate = 0;
+},
+
+refresh: function(){
+  location.reload();
+},
+
+fall_rate_up: function(){
+  this.fall_rate = this.fall_rate - 200;
+},
+
+fall_rate_down: function(){
+  this.fall_rate = this.fall_rate + 200;
 },
 
     //палка
