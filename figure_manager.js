@@ -22,8 +22,13 @@ let figureManager = {
 //        obj.createFigure7(obj.x_fall, obj.y_fall++, obj.r_fall);
         obj.figureFall();
       }
+      //if (obj.y_fall == 20) {
+      //  alert("Bottom is reached");
+      //  console.log("x= " + x + "y= " + y + "r= " + r);
+      //}
     }, obj.fall_rate);
 },
+
   figureLeft: function(){
     if (this.x_fall > 1) {
       this.createFigure3(--this.x_fall, this.y, this.r_fall);
@@ -56,10 +61,15 @@ refresh: function(){
 
 fall_rate_up: function(){
   this.fall_rate = this.fall_rate - 200;
+  let scoreboard = document.getElementById('scoreboard');
+  scoreboard.value = this.fall_rate;
+  console.log(this.fall_rate);
 },
 
 fall_rate_down: function(){
   this.fall_rate = this.fall_rate + 200;
+  let scoreboard = document.getElementById('scoreboard');
+  scoreboard.value = this.fall_rate;
 },
 
     //палка
@@ -327,6 +337,11 @@ fall_rate_down: function(){
   cellColorChange: function (x, y, color, r) {
     if (y < 1 || y > 20 || x < 1 || x >10) {
       return;
+    }
+    if (y == 20 ) {
+      alert("2nd bottom");
+      console.log("x= " + x + "y= " + y + "r= " + r);
+      figureFall;
     }
 
     let nth = x + (10 * y) - 10;

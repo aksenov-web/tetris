@@ -69,4 +69,5 @@ button {
   height: 40px;
   background-color: gray;
   text-align: center;
+  caret-color: transparent !important;
    }
