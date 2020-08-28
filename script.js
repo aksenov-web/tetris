@@ -43,6 +43,9 @@ fall_rate_down_button.addEventListener("click", function() {
   });
 
 figureManager.main_field = main_field;
+
+//figureManager.createFigure3(5, 5, 1);
+//figureManager.valuesReset();
 figureManager.figureFall();
 
 document.addEventListener("keydown", function (e) {
@@ -64,7 +67,7 @@ document.addEventListener("keydown", function (e) {
     break;
     case "ArrowDown":
       figureManager.figureDrop();
-      console.log("Drop");
+      //console.log("Drop");
     break;
   }
 

@@ -7,12 +7,14 @@ let figureManager = {
   y_fall: 1,
   r_fall: 1,
   fall_rate: 800,
+  fall_state: true,
+  move_state: true,
 
 
-  figureFall: function(){
+  figureFall: function(y){
     let obj = this;
     setTimeout(function(){
-      if (obj.y_fall <=20) {
+      if (obj.fall_state) {
 //       obj.createFigure1(obj.x_fall, obj.y_fall++, obj.r_fall);
 //        obj.createFigure2(obj.x_fall, obj.y_fall++, obj.r_fall);
         obj.createFigure3(obj.x_fall, obj.y_fall++, obj.r_fall);
@@ -20,7 +22,7 @@ let figureManager = {
 //          obj.createFigure5(obj.x_fall, obj.y_fall++, obj.r_fall);
 //        obj.createFigure6(obj.x_fall, obj.y_fall++, obj.r_fall);
 //        obj.createFigure7(obj.x_fall, obj.y_fall++, obj.r_fall);
-        obj.figureFall();
+        obj.figureFall(y);
       }
       //if (obj.y_fall == 20) {
       //  alert("Bottom is reached");
@@ -36,7 +38,7 @@ let figureManager = {
   },
 
   figureRight: function(){
-    if (this.x_fall < 10) {
+    if (this.move_state) {
      this.createFigure3(++this.x_fall, this.y, this.r_fall);
     }
   },
@@ -52,7 +54,7 @@ let figureManager = {
   },
 
 figureDrop: function(){
-  this.fall_rate = 0;
+  this.fall_rate = -10000;
 },
 
 refresh: function(){
@@ -60,14 +62,14 @@ refresh: function(){
 },
 
 fall_rate_up: function(){
-  this.fall_rate = this.fall_rate - 200;
+  this.fall_rate = this.fall_rate - 400;
   let scoreboard = document.getElementById('scoreboard');
   scoreboard.value = this.fall_rate;
   console.log(this.fall_rate);
 },
 
 fall_rate_down: function(){
-  this.fall_rate = this.fall_rate + 200;
+  this.fall_rate = this.fall_rate + 400;
   let scoreboard = document.getElementById('scoreboard');
   scoreboard.value = this.fall_rate;
 },
@@ -338,10 +340,17 @@ fall_rate_down: function(){
     if (y < 1 || y > 20 || x < 1 || x >10) {
       return;
     }
+
+    if (x == 10) {
+      this.move_state = false;
+      console.log("Right side!");
+    }
+    else {
+      this.move_state = true;
+    }
     if (y == 20 ) {
-      alert("2nd bottom");
-      console.log("x= " + x + "y= " + y + "r= " + r);
-      figureFall;
+      this.fall_state = false;
+      console.log("Bikini Bottom");
     }
 
     let nth = x + (10 * y) - 10;
@@ -349,5 +358,17 @@ fall_rate_down: function(){
     let cell = this.main_field.querySelector('div:nth-child(' + nth + ')');
     cell.style.background = color;
 
+  },
+  valuesReset: function() {
+    this.x = 0;
+    this.y = 3;
+    this.r = 1;
+    this.x_fall = 5;
+    this.y_fall = 1;
+    this.r_fall = 1;
+    this.fall_rate = 800;
+    this.fall_state = true;
+    this.move_state = true;
   }
+
 }
