@@ -4,49 +4,38 @@ let button_field = document.getElementById('button-field');
 let main = document.getElementById('main');
 let emptyDiv = document.createElement('div');
 let scoreboard = document.getElementById('scoreboard');
-
-
-/*for (let i = 0; i < 3; i) {
-  i++;
-  document.getElementById('button-field').appendChild(
-    document.createElement('button'));
-}
-let buttons = document.querySelectorAll('button');
-
-buttons.forEach(button => {
-button.addEventListener("click",  function() {
-    Refresh(button);
-    });
-});
-function Refresh(button) {
-//  alert('New Game');
-  location.reload();
-}
-*/
 let resresh_button = document.getElementById('resresh_button');
+let fall_rate_up_button = document.getElementById('fall_rate_up_button');
+let fall_rate_down_button = document.getElementById('fall_rate_down_button');
 
 resresh_button.addEventListener("click", function() {
   figureManager.refresh();
   });
 
-
-let fall_rate_up_button = document.getElementById('fall_rate_up_button');
-
 fall_rate_up_button.addEventListener("click", function() {
   figureManager.fall_rate_up();
   });
-
-let fall_rate_down_button = document.getElementById('fall_rate_down_button');
 
 fall_rate_down_button.addEventListener("click", function() {
   figureManager.fall_rate_down();
   });
 
+for (let i = 0; i < 200; i++) {
+  main_field.appendChild(
+    emptyDiv.cloneNode()
+  );
+    document.getElementById('test-field').appendChild(
+    document.createElement('div')
+  );
+}
+
 figureManager.main_field = main_field;
 
-//figureManager.createFigure3(5, 5, 1);
-//figureManager.valuesReset();
-figureManager.figureFall();
+figureManager.createFigure3(6, 20, 1);
+figureManager.valuesReset();
+figureManager.figureFall(1);
+
+
 
 document.addEventListener("keydown", function (e) {
   console.log(e.code);
@@ -70,22 +59,12 @@ document.addEventListener("keydown", function (e) {
       //console.log("Drop");
     break;
   }
-
 });
 
 scoreboard.value = figureManager.fall_rate;
 
 
-for (let i = 0; i < 200; i++) {
-  main_field.appendChild(
-    emptyDiv.cloneNode()
-  );
 
-    document.getElementById('test-field').appendChild(
-    document.createElement('div')
-  );
-
-}
 
 //figureManager.createFigure1(8, 5, 1);
 
