@@ -17,9 +17,9 @@ let figureManager = {
     let obj = this;
     setTimeout(function(){
       if (obj.fall_state) {
-//       obj.createFigure1(obj.x_fall, obj.y_fall++, obj.r_fall);
-        obj.createFigure2(obj.x_fall, obj.y_fall++, obj.r_fall);
-//        obj.createFigure3(obj.x_fall, obj.y_fall++, obj.r_fall);
+       obj.createFigure1(obj.x_fall, obj.y_fall++, obj.r_fall);
+//        obj.createFigure2(obj.x_fall, obj.y_fall++, obj.r_fall);
+//    obj.createFigure3(obj.x_fall, obj.y_fall++, obj.r_fall);
 //        obj.createFigure4(obj.x_fall, obj.y_fall++, obj.r_fall);
 //          obj.createFigure5(obj.x_fall, obj.y_fall++, obj.r_fall);
 //        obj.createFigure6(obj.x_fall, obj.y_fall++, obj.r_fall);
@@ -35,20 +35,19 @@ let figureManager = {
 
   figureLeft: function(){
     if (this.x_fall > 1) {
-      this.createFigure2(--this.x_fall, this.y, this.r_fall);
+      this.createFigure1(--this.x_fall, this.y, this.r_fall);
     }
   },
 
   figureRight: function(){
     if (this.move_state) {
-     this.createFigure2(++this.x_fall, this.y, this.r_fall);
+     this.createFigure1(++this.x_fall, this.y, this.r_fall);
     }
   },
 
   figureRotate: function(){
     if (this.r_fall <= 4) {
-      this.color = ""
-     this.createFigure2(this.x, this.y, ++this.r_fall);
+     this.createFigure1(this.x, this.y, ++this.r_fall);
     }
     else {
       this.r_fall = 1;
@@ -79,30 +78,47 @@ fall_rate_down: function(){
 
     //палка
   createFigure1: function (x, y, r) {
-    let color = "";
-
+     let color = "";
     for (let n = 1; n <= 2; n++) {
-       if (n == 1) {
-        color = "";
-       }
-      else {
+      if (n == 2) {
         color = "aqua";
       }
-        this.cellColorChange(this.x, this.y, color);
-      switch (r) {
+    let coords = [];
+        switch (r) {
         case 1:
         case 3:
-          this.cellColorChange(this.x, --this.y, color);
-          this.cellColorChange(this.x, --this.y, color);
-          this.cellColorChange(this.x, --this.y, color);
+            coords = [
+              [this.x, this.y],
+              [this.x, --this.y],
+              [this.x, --this.y],
+              [this.x, --this.y]
+            ];
         break;
         case 2:
         case 4:
-          this.cellColorChange(++this.x, this.y, color);
-          this.cellColorChange(++this.x, this.y, color);
-          this.cellColorChange(++this.x, this.y, color);
+            n = 1;
+            coords = [
+              [this.x, this.y],
+              [this.x, --this.y],
+              [this.x, --this.y],
+              [this.x, --this.y]
+            ];
+            n = 2;
+          coords = [
+              [this.x, this.y],
+              [++this.x, this.y],
+              [++this.x, this.y],
+              [++this.x, this.y]
+            ];
         break;
       }
+        if (n == 2) {
+          this.validate(coords);
+        }
+
+        for (coord of coords) {
+            this.cellColorChange(coord[0], coord[1], color);
+          }
       this.x = x;
       this.y = y;
     }
@@ -112,38 +128,54 @@ fall_rate_down: function(){
   createFigure2: function (x, y, r) {
     let color = "";
     for (let n = 1; n <= 2; n++) {
-      if (n == 1) {
-        color = "";
-      }
-      else {
+      if (n == 2) {
         color = "red";
       }
-
+    let coords = [];
     switch(r) {
       case 1:
-      case 3:
-        let coord = [
+        coords = [
         [this.x, this.y-1],
         [++this.x, this.y-1],
         [this.x, this.y],
         [++this.x, this.y]
         ];
-        if (this.validate(coord)) {
-        this.cellColorChange(coord[0][0], coord[0][1], color);
-        this.cellColorChange(coord[1][0], coord[1][1], color);
-        this.cellColorChange(coord[2][0], coord[2][1], color);
-        this.cellColorChange(coord[3][0], coord[3][1], color);
-          console.log(coord);
-        }
       break;
       case 2:
+        coords = [
+        [this.x, this.y],
+        [this.x, --this.y],
+        [++this.x, this.y],
+        [this.x, --this.y]
+        ];
+      break;
+      case 3:
+        coords = [
+        [this.x, this.y-1],
+        [++this.x, this.y-1],
+        [this.x, this.y],
+        [++this.x, this.y]
+        ];
+      break;
       case 4:
-        this.cellColorChange(this.x, this.y, color);
-        this.cellColorChange(this.x, --this.y, color);
-        this.cellColorChange(++this.x, this.y, color);
-        this.cellColorChange(this.x, --this.y, color);
+        coords = [
+        [this.x, this.y],
+        [this.x, --this.y],
+        [++this.x, this.y],
+        [this.x, --this.y]
+        ];
       break;
     }
+
+        if (n == 2) {
+          this.validate(coords);
+        }
+
+        for (coord of coords) {
+            this.cellColorChange(coord[0], coord[1], color);
+          }
+
+
     this.x = x;
     this.y = y;
     }
@@ -152,29 +184,38 @@ fall_rate_down: function(){
     // backward z
    createFigure3: function (x, y, r) {
      let color = "";
-     for (let n = 1; n <= 2; n++) {
-       if (n == 1) {
-        color = "";
-       }
-      else {
+    for (let n = 1; n <= 2; n++) {
+      if (n == 2) {
         color = "green";
       }
+    let coords = [];
     switch(r) {
       case 1:
       case 3:
-        this.cellColorChange(this.x, this.y, color);
-        this.cellColorChange(++this.x, this.y, color);
-        this.cellColorChange(this.x, --this.y, color);
-        this.cellColorChange(++this.x, this.y, color);
+       coords = [
+              [this.x, this.y],
+              [++this.x, this.y],
+              [this.x, --this.y],
+              [++this.x, this.y]
+            ];
       break;
       case 2:
       case 4:
-        this.cellColorChange(this.x+1, this.y, color);
-        this.cellColorChange(this.x+1, --this.y, color);
-        this.cellColorChange(this.x, this.y, color);
-        this.cellColorChange(this.x, --this.y, color);
+        coords = [
+              [this.x+1, this.y],
+              [this.x+1, --this.y],
+              [this.x, this.y],
+              [this.x, --this.y]
+            ];
       break;
     }
+       if (n == 2) {
+          this.validate(coords);
+        }
+
+        for (coord of coords) {
+            this.cellColorChange(coord[0], coord[1], color);
+          }
         this.x = x;
         this.y = y;
     }
@@ -182,18 +223,26 @@ fall_rate_down: function(){
 
     // square
   createFigure4:  function (x, y, r) {
-    let color = "";
+   let color = "";
     for (let n = 1; n <= 2; n++) {
-       if (n == 1) {
-        color = "";
-       }
-      else {
+      if (n == 2) {
         color = "yellow";
       }
-        this.cellColorChange(this.x, this.y, color);
-        this.cellColorChange(this.x+1, this.y, color);
-        this.cellColorChange(this.x, this.y-1, color);
-        this.cellColorChange(this.x+1, this.y-1, color);
+    coords = [
+              [this.x, this.y],
+              [this.x+1, this.y],
+              [this.x, this.y-1],
+              [this.x+1, this.y-1]
+            ];
+
+
+      if (n == 2) {
+          this.validate(coords);
+        }
+
+        for (coord of coords) {
+            this.cellColorChange(coord[0], coord[1], color);
+          }
       this.x = x;
       this.y = y;
     }
@@ -204,38 +253,51 @@ fall_rate_down: function(){
   createFigure5: function (x, y, r) {
     let color = "";
     for (let n = 1; n <= 2; n++) {
-       if (n == 1) {
-        color = "";
-       }
-      else {
+      if (n == 2) {
         color = "purple";
       }
+    let coords = [];
     switch(r) {
       case 1:
-        this.cellColorChange(this.x, this.y, color);
-        this.cellColorChange(this.x+1, this.y, color);
-        this.cellColorChange(this.x+2, this.y, color);
-        this.cellColorChange(this.x+1, this.y-1, color);
+        coords = [
+              [this.x, this.y],
+              [this.x+1, this.y],
+              [this.x+2, this.y],
+              [this.x+1, this.y-1]
+            ];
       break;
       case 2:
-        this.cellColorChange(this.x+1, this.y, color);
-        this.cellColorChange(this.x+1, this.y-1, color);
-        this.cellColorChange(++this.x, this.y-2, color);
-        this.cellColorChange(++this.x, this.y-1, color);
+        coords = [
+              [this.x+1, this.y],
+              [this.x+1, this.y-1],
+              [++this.x, this.y-2],
+              [++this.x, this.y-1]
+            ];
       break;
       case 3:
-        this.cellColorChange(this.x, this.y-1, color);
-        this.cellColorChange(this.x+1, this.y-1, color);
-        this.cellColorChange(this.x+2, this.y-1, color);
-        this.cellColorChange(this.x+1, this.y, color);
+        coords = [
+              [this.x, this.y-1],
+              [this.x+1, this.y-1],
+              [this.x+2, this.y-1],
+              [this.x+1, this.y]
+            ];
       break;
       case 4:
-        this.cellColorChange(this.x+1, this.y, color);
-        this.cellColorChange(this.x+1, this.y-1, color);
-        this.cellColorChange(this.x+1, this.y-2, color);
-        this.cellColorChange(this.x, this.y-1, color);
+        coords = [
+              [this.x+1, this.y],
+              [this.x+1, this.y-1],
+              [this.x+1, this.y-2],
+              [this.x, this.y-1]
+            ];
       break;
     }
+       if (n == 2) {
+          this.validate(coords);
+        }
+
+        for (coord of coords) {
+            this.cellColorChange(coord[0], coord[1], color);
+          }
         this.x = x;
         this.y = y;
     }
@@ -244,40 +306,52 @@ fall_rate_down: function(){
   // г
   createFigure6: function (x, y, r) {
     let color = "";
-
     for (let n = 1; n <= 2; n++) {
-       if (n == 1) {
-        color = "";
-       }
-      else {
+      if (n == 2) {
         color = "blue";
       }
+    let coords = [];
       switch(r) {
         case 1:
-          this.cellColorChange(this.x, this.y, color);
-          this.cellColorChange(this.x, --this.y, color);
-          this.cellColorChange(this.x, --this.y, color);
-          this.cellColorChange(this.x+1, this.y, color);
+          coords = [
+              [this.x, this.y],
+              [this.x, --this.y],
+              [this.x, --this.y],
+              [this.x+1, this.y]
+            ];
         break;
         case 2:
-          this.cellColorChange(this.x, this.y-1, color);
-          this.cellColorChange(++this.x, this.y-1, color);
-          this.cellColorChange(++this.x, this.y-1, color);
-          this.cellColorChange(this.x, this.y, color);
+          coords = [
+              [this.x, this.y-1],
+              [++this.x, this.y-1],
+              [++this.x, this.y-1],
+              [this.x, this.y]
+            ];
         break;
         case 3:
-          this.cellColorChange(this.x, this.y, color);
-          this.cellColorChange(++this.x, this.y, color);
-          this.cellColorChange(this.x, --this.y, color);
-          this.cellColorChange(this.x, --this.y, color);
+          coords = [
+              [this.x, this.y],
+              [++this.x, this.y],
+              [this.x, --this.y],
+              [this.x, --this.y]
+            ];
         break;
         case 4:
-          this.cellColorChange(this.x, this.y-1, color);
-          this.cellColorChange(this.x, this.y, color);
-          this.cellColorChange(this.x+1, this.y, color);
-          this.cellColorChange(this.x+2, this.y, color);
+          coords = [
+              [this.x, this.y-1],
+              [this.x, this.y],
+              [this.x+1, this.y],
+              [this.x+2, this.y]
+            ];
         break;
       }
+      if (n == 2) {
+          this.validate(coords);
+        }
+
+        for (coord of coords) {
+            this.cellColorChange(coord[0], coord[1], color);
+          }
         this.x = x;
         this.y = y;
     }
@@ -287,38 +361,51 @@ fall_rate_down: function(){
   createFigure7: function (x, y, r) {
     let color = "";
     for (let n = 1; n <= 2; n++) {
-       if (n == 1) {
-        color = "";
-       }
-      else {
+      if (n == 2) {
         color = "orange";
       }
+    let coords = [];
       switch(r) {
         case 1:
-          this.cellColorChange(this.x, this.y-2, color);
-          this.cellColorChange(this.x+1, this.y-2, color);
-          this.cellColorChange(this.x+1, this.y-1, color);
-          this.cellColorChange(this.x+1, this.y, color);
+          coords = [
+              [this.x, this.y-2],
+              [this.x+1, this.y-2],
+              [this.x+1, this.y-1],
+              [this.x+1, this.y]
+            ];
         break;
         case 2:
-          this.cellColorChange(this.x, this.y, color);
-          this.cellColorChange(this.x+1, this.y, color);
-          this.cellColorChange(this.x+2, this.y, color);
-          this.cellColorChange(this.x+2, this.y-1, color);
+          coords = [
+              [this.x, this.y],
+              [this.x+1, this.y],
+              [this.x+2, this.y],
+              [this.x+2, this.y-1]
+            ];
         break;
         case 3:
-          this.cellColorChange(this.x, this.y, color);
-          this.cellColorChange(this.x+1, this.y, color);
-          this.cellColorChange(this.x, this.y-1, color);
-          this.cellColorChange(this.x, this.y-2, color);
+          coords = [
+              [this.x, this.y],
+              [this.x+1, this.y],
+              [this.x, this.y-1],
+              [this.x, this.y-2]
+            ];
         break;
         case 4:
-          this.cellColorChange(this.x, this.y, color);
-          this.cellColorChange(this.x, this.y-1, color);
-          this.cellColorChange(this.x+1, this.y-1, color);
-          this.cellColorChange(this.x+2, this.y-1, color);
+          coords = [
+              [this.x, this.y],
+              [this.x, this.y-1],
+              [this.x+1, this.y-1],
+              [this.x+2, this.y-1]
+            ];
         break;
       }
+       if (n == 2) {
+          this.validate(coords);
+        }
+
+        for (coord of coords) {
+            this.cellColorChange(coord[0], coord[1], color);
+          }
         this.x = x;
         this.y = y;
     }
@@ -340,8 +427,6 @@ fall_rate_down: function(){
 
     let nth = x + (10 * y) - 10;
     let cell = this.main_field.querySelector('div:nth-child(' + nth + ')');
-
-
 
     if (y < 1 || y > 20 || x < 1 || x >10) {
       return;
@@ -371,7 +456,22 @@ fall_rate_down: function(){
     this.fall_state = true;
     this.move_state = true;
   },
-  validate: function(coord) {
+  validate: function(coords) {
+    for (coord of coords) {
+      let x = coord[0],
+          y = coord[1]+1;
+
+      if (y < 1 || y > 20 || x < 1 || x >10) {
+        return true;
+    }
+      let nth = x + (10 * y) - 10;
+      let cell = this.main_field.querySelector('div:nth-child(' + nth + ')');
+
+      if (cell.className == "filled") {
+      this.fall_state = false;
+      return false;
+    }
+    }
     return true;
   }
 
