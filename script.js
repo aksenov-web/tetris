@@ -43,25 +43,20 @@ document.addEventListener("keydown", function (e) {
   switch (e.code) {
     case "ArrowLeft":
       figureManager.figureLeft();
-      console.log(figureManager.figureLeft);
     break;
     case "ArrowRight":
       figureManager.figureRight();
-      console.log(figureManager.figureRight);
-      console.log("To the right!");
     break;
     case "Space":
       figureManager.figureRotate();
-      console.log("Rotation");
     break;
     case "ArrowDown":
       figureManager.figureDrop();
-      //console.log("Drop");
     break;
   }
 });
 
-scoreboard.value = figureManager.fall_rate;
+scoreboard.value = 0;
 
 
 

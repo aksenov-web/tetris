@@ -46,7 +46,7 @@ let figureManager = {
   },
 
   figureRotate: function(){
-    if (this.r_fall <= 4) {
+    if (this.r_fall < 5) {
      this.createFigure1(this.x, this.y, ++this.r_fall);
     }
     else {
@@ -64,16 +64,16 @@ refresh: function(){
 },
 
 fall_rate_up: function(){
-  this.fall_rate = this.fall_rate - 400;
+  this.fall_rate = this.fall_rate - 300;
   let scoreboard = document.getElementById('scoreboard');
-  scoreboard.value = this.fall_rate;
-  console.log(this.fall_rate);
+  scoreboard.value = (0 + (-this.fall_rate / 300));
+
 },
 
 fall_rate_down: function(){
-  this.fall_rate = this.fall_rate + 400;
+  this.fall_rate = this.fall_rate + 300;
   let scoreboard = document.getElementById('scoreboard');
-  scoreboard.value = this.fall_rate;
+  scoreboard.value = (0 - (this.fall_rate / 300));
 },
 
     //палка
@@ -84,32 +84,24 @@ fall_rate_down: function(){
         color = "aqua";
       }
     let coords = [];
-        switch (r) {
+        switch (this.r) {
         case 1:
         case 3:
-            coords = [
-              [this.x, this.y],
-              [this.x, --this.y],
-              [this.x, --this.y],
-              [this.x, --this.y]
-            ];
+          coords = [
+            [this.x, this.y],
+            [this.x, --this.y],
+            [this.x, --this.y],
+            [this.x, --this.y]
+          ];
         break;
         case 2:
         case 4:
-            n = 1;
-            coords = [
-              [this.x, this.y],
-              [this.x, --this.y],
-              [this.x, --this.y],
-              [this.x, --this.y]
-            ];
-            n = 2;
           coords = [
-              [this.x, this.y],
-              [++this.x, this.y],
-              [++this.x, this.y],
-              [++this.x, this.y]
-            ];
+            [this.x, this.y],
+            [++this.x, this.y],
+            [++this.x, this.y],
+            [++this.x, this.y]
+          ];
         break;
       }
         if (n == 2) {
@@ -119,8 +111,10 @@ fall_rate_down: function(){
         for (coord of coords) {
             this.cellColorChange(coord[0], coord[1], color);
           }
+
       this.x = x;
       this.y = y;
+      this.r = r;
     }
   },
 
@@ -417,9 +411,11 @@ fall_rate_down: function(){
       this.move_state = false;
       console.log("Right side!");
     }
+
     else {
       this.move_state = true;
     }
+
     if (y == 20) {
       this.fall_state = false;
       console.log("Bikini Bottom");
@@ -435,14 +431,18 @@ fall_rate_down: function(){
     if (color == '') {
       cell.classList.remove("filled");
     }
+
     else if (cell.className == "filled") {
       this.fall_state = false;
     }
+
     else {
       cell.classList.add("filled");
     }
 
     cell.style.background = color;
+
+
   },
 
   valuesReset: function() {
