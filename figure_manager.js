@@ -10,6 +10,8 @@ let figureManager = {
   fall_state: true,
   move_state: true,
   color: "",
+  figure: this.createFigure1,
+
 
 
 
@@ -46,35 +48,35 @@ let figureManager = {
   },
 
   figureRotate: function(){
-    if (this.r_fall < 5) {
-     this.createFigure1(this.x, this.y, ++this.r_fall);
+    if (this.r_fall < 4) {
+     ++this.r_fall;
     }
     else {
       this.r_fall = 1;
-      this.figureRotate();
     }
+    this.createFigure1(this.x, this.y, this.r_fall);
   },
 
-figureDrop: function(){
-  this.fall_rate = -10000;
-},
+  figureDrop: function(){
+    this.fall_rate = -10000;
+  },
 
-refresh: function(){
-  location.reload();
-},
+  refresh: function(){
+    location.reload();
+  },
 
-fall_rate_up: function(){
-  this.fall_rate = this.fall_rate - 300;
-  let scoreboard = document.getElementById('scoreboard');
-  scoreboard.value = (0 + (-this.fall_rate / 300));
+  fall_rate_up: function(){
+    this.fall_rate = this.fall_rate - 300;
+    let scoreboard = document.getElementById('scoreboard');
+    scoreboard.value = (0 + (-this.fall_rate / 300));
 
-},
+  },
 
-fall_rate_down: function(){
-  this.fall_rate = this.fall_rate + 300;
-  let scoreboard = document.getElementById('scoreboard');
-  scoreboard.value = (0 - (this.fall_rate / 300));
-},
+  fall_rate_down: function(){
+    this.fall_rate = this.fall_rate + 300;
+    let scoreboard = document.getElementById('scoreboard');
+    scoreboard.value = (0 - (this.fall_rate / 300));
+  },
 
     //палка
   createFigure1: function (x, y, r) {
