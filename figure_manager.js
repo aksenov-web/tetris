@@ -6,7 +6,7 @@ let figureManager = {
   x_fall: 5,
   y_fall: 1,
   r_fall: 1,
-  fall_rate: 300,
+  fall_rate: 1000,
   fall_state: true,
   move_state: true,
   color: "",
@@ -28,12 +28,9 @@ let figureManager = {
 //        obj.createFigure7(obj.x_fall, obj.y_fall++, obj.r_fall);
         obj.figureFall(y);
       }
-      //if (obj.y_fall == 20) {
-      //  alert("Bottom is reached");
-      //  console.log("x= " + x + "y= " + y + "r= " + r);
-      //}
+
     }, obj.fall_rate);
-},
+  },
 
   figureLeft: function(){
     if (this.x_fall > 1) {
@@ -80,39 +77,41 @@ let figureManager = {
 
     //палка
   createFigure1: function (x, y, r) {
-     let color = "";
+    let color = "";
     for (let n = 1; n <= 2; n++) {
       if (n == 2) {
         color = "aqua";
       }
     let coords = [];
         switch (this.r) {
-        case 1:
-        case 3:
-          coords = [
-            [this.x, this.y],
-            [this.x, --this.y],
-            [this.x, --this.y],
-            [this.x, --this.y]
-          ];
-        break;
-        case 2:
-        case 4:
-          coords = [
-            [this.x, this.y],
-            [++this.x, this.y],
-            [++this.x, this.y],
-            [++this.x, this.y]
-          ];
-        break;
-      }
+          case 1:
+          case 3:
+            coords = [
+              [this.x, this.y],
+              [this.x, --this.y],
+              [this.x, --this.y],
+              [this.x, --this.y]
+            ];
+          break;
+          case 2:
+          case 4:
+            coords = [
+              [this.x, this.y],
+              [++this.x, this.y],
+              [++this.x, this.y],
+              [++this.x, this.y]
+            ];
+          break;
+        }
         if (n == 2) {
           this.validate(coords);
+          this.validate_x(coords);
+
         }
 
         for (coord of coords) {
-            this.cellColorChange(coord[0], coord[1], color);
-          }
+          this.cellColorChange(coord[0], coord[1], color);
+        }
 
       this.x = x;
       this.y = y;
@@ -128,7 +127,7 @@ let figureManager = {
         color = "red";
       }
     let coords = [];
-    switch(r) {
+    switch(this.r) {
       case 1:
         coords = [
         [this.x, this.y-1],
@@ -163,87 +162,85 @@ let figureManager = {
       break;
     }
 
-        if (n == 2) {
-          this.validate(coords);
-        }
+    if (n == 2) {
+      this.validate(coords);
+    }
 
-        for (coord of coords) {
-            this.cellColorChange(coord[0], coord[1], color);
-          }
-
+    for (coord of coords) {
+        this.cellColorChange(coord[0], coord[1], color);
+    }
 
     this.x = x;
     this.y = y;
+    this.r = r;
     }
   },
 
     // backward z
    createFigure3: function (x, y, r) {
-     let color = "";
+    let color = "";
     for (let n = 1; n <= 2; n++) {
       if (n == 2) {
         color = "green";
       }
-    let coords = [];
-    switch(r) {
-      case 1:
-      case 3:
-       coords = [
-              [this.x, this.y],
-              [++this.x, this.y],
-              [this.x, --this.y],
-              [++this.x, this.y]
-            ];
-      break;
-      case 2:
-      case 4:
-        coords = [
-              [this.x+1, this.y],
-              [this.x+1, --this.y],
-              [this.x, this.y],
-              [this.x, --this.y]
-            ];
-      break;
-    }
-       if (n == 2) {
-          this.validate(coords);
-        }
+      let coords = [];
+      switch(this.r) {
+        case 1:
+        case 3:
+          coords = [
+            [this.x, this.y],
+            [++this.x, this.y],
+            [this.x, --this.y],
+            [++this.x, this.y]
+          ];
+        break;
+        case 2:
+        case 4:
+          coords = [
+            [this.x+1, this.y],
+            [this.x+1, --this.y],
+            [this.x, this.y],
+            [this.x, --this.y]
+          ];
+        break;
+      }
+      if (n == 2) {
+        this.validate(coords);
+      }
 
-        for (coord of coords) {
-            this.cellColorChange(coord[0], coord[1], color);
-          }
-        this.x = x;
-        this.y = y;
+      for (coord of coords) {
+        this.cellColorChange(coord[0], coord[1], color);
+      }
+      this.x = x;
+      this.y = y;
+      this.r = r;
     }
   },
 
     // square
   createFigure4:  function (x, y, r) {
-   let color = "";
+    let color = "";
     for (let n = 1; n <= 2; n++) {
       if (n == 2) {
         color = "yellow";
       }
-    coords = [
-              [this.x, this.y],
-              [this.x+1, this.y],
-              [this.x, this.y-1],
-              [this.x+1, this.y-1]
-            ];
-
-
+      coords = [
+        [this.x, this.y],
+        [this.x+1, this.y],
+        [this.x, this.y-1],
+        [this.x+1, this.y-1]
+      ];
       if (n == 2) {
-          this.validate(coords);
-        }
-
-        for (coord of coords) {
-            this.cellColorChange(coord[0], coord[1], color);
-          }
+        this.validate(coords);
+      }
+      for (coord of coords) {
+        this.cellColorChange(coord[0], coord[1], color);
+      }
       this.x = x;
       this.y = y;
+      this.r = r;
     }
-
-    },
+  },
 
   // T
   createFigure5: function (x, y, r) {
@@ -253,7 +250,7 @@ let figureManager = {
         color = "purple";
       }
     let coords = [];
-    switch(r) {
+    switch(this.r) {
       case 1:
         coords = [
               [this.x, this.y],
@@ -296,6 +293,7 @@ let figureManager = {
           }
         this.x = x;
         this.y = y;
+      this.r = r;
     }
   },
 
@@ -307,7 +305,7 @@ let figureManager = {
         color = "blue";
       }
     let coords = [];
-      switch(r) {
+      switch(this.r) {
         case 1:
           coords = [
               [this.x, this.y],
@@ -350,6 +348,7 @@ let figureManager = {
           }
         this.x = x;
         this.y = y;
+        this.r = r;
     }
   },
 
@@ -361,7 +360,7 @@ let figureManager = {
         color = "orange";
       }
     let coords = [];
-      switch(r) {
+      switch(this.r) {
         case 1:
           coords = [
               [this.x, this.y-2],
@@ -404,15 +403,17 @@ let figureManager = {
           }
         this.x = x;
         this.y = y;
+        this.r = r;
     }
   },
 
 
   cellColorChange: function (x, y, color, r) {
-    if (x == 10) {
+    if (this.x >= 10) {
       this.move_state = false;
       console.log("Right side!");
     }
+
 
     else {
       this.move_state = true;
@@ -454,10 +455,21 @@ let figureManager = {
     this.x_fall = 5;
     this.y_fall = 1;
     this.r_fall = 1;
-    this.fall_rate = 300;
+    this.fall_rate = 1000;
     this.fall_state = true;
     this.move_state = true;
   },
+
+  validate_x: function(coords) {
+    for (coord of coords) {
+      let x = coord[0];
+      if (x > 10) {
+        this.x_fall = --this.x_fall;
+        this.move_state = false;
+      }
+  }
+  },
+
   validate: function(coords) {
     for (coord of coords) {
       let x = coord[0],
